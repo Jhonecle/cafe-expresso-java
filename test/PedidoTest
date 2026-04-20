@@ -1,0 +1,16 @@
+import model.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class PedidoTest {
+
+    @Test
+    public void testTotal() {
+        Produto cafe = new Produto("Café", 5.0);
+        Pedido pedido = new Pedido();
+
+        pedido.adicionarItem(cafe, 2);
+
+        assertEquals(10.0, pedido.calcularTotal());
+    }
+}
