@@ -1,25 +1,27 @@
-import model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import model.Pedido;
+import model.Produto;
+import model.StatusPedido;
+
 public class PedidoTest {
 
     @Test
-    public void deveCalcularTotalCorretamente() {
-        Produto cafe = new Produto("Café", 5.0);
-        Produto pao = new Produto("Pão de Queijo", 7.0);
+    void deveCalcularTotalPedido() {
 
         Pedido pedido = new Pedido();
 
-        pedido.adicionarItem(cafe, 2);
-        pedido.adicionarItem(pao, 1);
+        pedido.adicionarProduto(new Produto("Café", 5.0));
+        pedido.adicionarProduto(new Produto("Pão", 3.0));
 
-        assertEquals(17.0, pedido.calcularTotal());
+        assertEquals(8.0, pedido.calcularTotal());
     }
 
     @Test
-    public void deveAlterarStatusParaPago() {
+    void deveAlterarStatusParaPago() {
+
         Pedido pedido = new Pedido();
 
         pedido.pagar();
@@ -28,35 +30,29 @@ public class PedidoTest {
     }
 
     @Test
-    public void naoDevePermitirPagamentoDuasVezes() {
+    void naoDevePagarPedidoJaPago() {
+
         Pedido pedido = new Pedido();
 
         pedido.pagar();
 
-        assertThrows(
-                IllegalStateException.class,
-                pedido::pagar
-        );
+        assertThrows(IllegalStateException.class, pedido::pagar);
     }
 
     @Test
-    public void deveEnviarParaCozinhaSomenteSePago() {
+    void naoDeveEnviarParaCozinhaSemPagamento() {
+
         Pedido pedido = new Pedido();
 
-        assertThrows(
-                IllegalStateException.class,
-                pedido::enviarParaCozinha
-        );
+        assertThrows(IllegalStateException.class, pedido::enviarParaCozinha);
     }
 
     @Test
-    public void deveFinalizarSomenteSeEmPreparo() {
+    void naoDeveFinalizarPedidoSemPreparacao() {
+
         Pedido pedido = new Pedido();
 
-        assertThrows(
-                IllegalStateException.class,
-                pedido::finalizarPedido
-        );
+        assertThrows(IllegalStateException.class, pedido::finalizarPedido);
     }
 }
 
