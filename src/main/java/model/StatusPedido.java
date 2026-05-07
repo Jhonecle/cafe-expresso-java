@@ -1,8 +1,9 @@
 package model;
 
 public enum StatusPedido {
-    PENDENTE,
+
+    RECEBIDO,
     PAGO,
-    EM_PREPARO,
+    EM_PREPARACAO,
     FINALIZADO
 }
