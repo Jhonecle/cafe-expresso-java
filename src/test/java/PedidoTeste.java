@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PedidoTest {
+public class PedidoTeste {
 
     @Test
     public void deveCalcularTotalCorretamente() {
