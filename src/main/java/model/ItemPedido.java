@@ -13,7 +13,7 @@ public class ItemPedido {
     }
 
     public double calcularSubtotal() {
-        return produto.getPrecoUnitario() * quantidade;
+        return produto.getPreco() * quantidade;
     }
 
     public Produto getProduto() {
