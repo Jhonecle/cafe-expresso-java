@@ -11,8 +11,9 @@ public class Main {
 
         Pedido pedido = new Pedido();
 
-        pedido.adicionarItem(cafe, 2);
-        pedido.adicionarItem(pao, 1);
+        pedido.adicionarProduto(cafe);
+        pedido.adicionarProduto(cafe);
+        pedido.adicionarProduto(pao);
 
         System.out.println("Total: R$ " + pedido.calcularTotal());
 
