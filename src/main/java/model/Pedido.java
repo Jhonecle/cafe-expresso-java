@@ -5,44 +5,59 @@ import java.util.List;
 
 public class Pedido {
 
-    private List<ItemPedido> itens;
+    private List<Produto> produtos;
     private StatusPedido status;
 
     public Pedido() {
-        this.itens = new ArrayList<>();
-        this.status = StatusPedido.PENDENTE;
+        this.produtos = new ArrayList<>();
+        this.status = StatusPedido.RECEBIDO;
     }
 
-    public void adicionarItem(Produto produto, int quantidade) {
-        itens.add(new ItemPedido(produto, quantidade));
+    // MÉTODO QUE ESTÁ FALTANDO
+    public void adicionarProduto(Produto produto) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido");
+        }
+
+        produtos.add(produto);
     }
 
     public double calcularTotal() {
+
         double total = 0;
-        for (ItemPedido item : itens) {
-            total += item.calcularSubtotal();
+
+        for (Produto produto : produtos) {
+            total += produto.getPreco();
         }
+
         return total;
     }
 
     public void pagar() {
-        if (status != StatusPedido.PENDENTE) {
-            throw new IllegalStateException("Pedido só pode ser pago se estiver PENDENTE");
+
+        if (status == StatusPedido.PAGO) {
+            throw new IllegalStateException("Pedido já pago");
         }
+
         status = StatusPedido.PAGO;
     }
 
     public void enviarParaCozinha() {
+
         if (status != StatusPedido.PAGO) {
-            throw new IllegalStateException("Pedido precisa estar PAGO");
+            throw new IllegalStateException("Pedido precisa estar pago");
         }
-        status = StatusPedido.EM_PREPARO;
+
+        status = StatusPedido.EM_PREPARACAO;
     }
 
     public void finalizarPedido() {
-        if (status != StatusPedido.EM_PREPARO) {
-            throw new IllegalStateException("Pedido precisa estar EM PREPARO");
+
+        if (status != StatusPedido.EM_PREPARACAO) {
+            throw new IllegalStateException("Pedido não está em preparação");
         }
+
         status = StatusPedido.FINALIZADO;
     }
 
@@ -50,3 +65,4 @@ public class Pedido {
         return status;
     }
 }
+
