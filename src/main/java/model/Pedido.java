@@ -43,7 +43,7 @@ public class Pedido {
     }
 
     status = StatusPedido.PAGO;
-}
+
     }
 
     public void enviarParaCozinha() {
