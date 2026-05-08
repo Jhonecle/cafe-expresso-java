@@ -34,13 +34,16 @@ public class Pedido {
         return total;
     }
 
-    public void pagar() {
+  public void pagar() {
 
-        if (status == StatusPedido.PAGO) {
-            throw new IllegalStateException("Pedido já pago");
-        }
+    if (status == StatusPedido.EM_PREPARACAO ||
+        status == StatusPedido.FINALIZADO) {
 
-        status = StatusPedido.PAGO;
+        throw new IllegalStateException("Não é possível pagar este pedido");
+    }
+
+    status = StatusPedido.PAGO;
+}
     }
 
     public void enviarParaCozinha() {
