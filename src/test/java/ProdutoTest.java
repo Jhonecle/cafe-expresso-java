@@ -1,6 +1,7 @@
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import model.Produto;
 
@@ -27,5 +28,23 @@ public class ProdutoTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> new Produto("", 5.0));
+    }
+
+    @Test
+    void naoDevePermitirNomeNulo() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Produto(null, 5.0));
+    }
+
+    @Test
+    void naoDevePermitirNomeApenasComEspacos() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Produto("   ", 5.0));
+    }
+
+    @Test
+    void naoDevePermitirPrecoNegativo() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Produto("Café", -1.0));
     }
 }

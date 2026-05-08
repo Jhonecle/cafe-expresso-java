@@ -1,6 +1,7 @@
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 import model.Pedido;
 import model.Produto;
@@ -54,5 +55,50 @@ public class PedidoTest {
 
         assertThrows(IllegalStateException.class, pedido::finalizarPedido);
     }
-}
 
+    @Test
+    void deveCalcularTotalPedidoVazio() {
+        Pedido pedido = new Pedido();
+        assertEquals(0.0, pedido.calcularTotal());
+    }
+
+    @Test
+    void deveAlterarStatusParaEmPreparacaoAposPagamento() {
+        Pedido pedido = new Pedido();
+        pedido.pagar();
+        pedido.enviarParaCozinha();
+        assertEquals(StatusPedido.EM_PREPARACAO, pedido.getStatus());
+    }
+
+    @Test
+    void deveAlterarStatusParaFinalizadoAposPreparacao() {
+        Pedido pedido = new Pedido();
+        pedido.pagar();
+        pedido.enviarParaCozinha();
+        pedido.finalizarPedido();
+        assertEquals(StatusPedido.FINALIZADO, pedido.getStatus());
+    }
+
+    @Test
+    void naoDevePagarPedidoEmPreparacao() {
+        Pedido pedido = new Pedido();
+        pedido.pagar();
+        pedido.enviarParaCozinha();
+        assertThrows(IllegalStateException.class, pedido::pagar);
+    }
+
+    @Test
+    void naoDevePagarPedidoFinalizado() {
+        Pedido pedido = new Pedido();
+        pedido.pagar();
+        pedido.enviarParaCozinha();
+        pedido.finalizarPedido();
+        assertThrows(IllegalStateException.class, pedido::pagar);
+    }
+
+    @Test
+    void naoDeveAdicionarProdutoNulo() {
+        Pedido pedido = new Pedido();
+        assertThrows(IllegalArgumentException.class, () -> pedido.adicionarProduto(null));
+    }
+}

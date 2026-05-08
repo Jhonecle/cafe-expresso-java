@@ -1,9 +1,9 @@
 
-package main;
-
-import model.*;
+import model.Pedido;
+import model.Produto;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Produto cafe = new Produto("Café", 5.0);
