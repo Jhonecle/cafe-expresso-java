@@ -36,7 +36,8 @@ public class Pedido {
 
   public void pagar() {
 
-    if (status == StatusPedido.EM_PREPARACAO ||
+    if (status == StatusPedido.PAGO||
+        status == StatusPedido.EM_PREPARACAO ||
         status == StatusPedido.FINALIZADO) {
 
         throw new IllegalStateException("Não é possível pagar este pedido");
